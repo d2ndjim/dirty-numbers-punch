@@ -26,17 +26,19 @@ import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { Layout } from "./components/layout";
 import { DashboardPage, Login } from "./pages";
 import { resources } from "./config/resources";
+import { CompanyCreatePage, CompanyEditPage, CompanyListPage } from "./pages/companies";
+import { TasksCreatePage, TasksEditPage, TasksListPage } from "./pages/tasks";
 
 function App() {
   return (
     <BrowserRouter>
-      {/* <GitHubBanner /> */}
+      <GitHubBanner />
       <RefineKbarProvider>
           <AntdApp>
             <DevtoolsProvider>
               <Refine
                 dataProvider={dataProvider}
-              liveProvider={liveProvider}
+                liveProvider={liveProvider}
                 notificationProvider={useNotificationProvider}
                 routerProvider={routerBindings}
                 authProvider={authProvider}
@@ -50,52 +52,52 @@ function App() {
                 }}
               >
                 <Routes>
-                 <Route
-                  element={
-                    <Authenticated
-                      key="authenticated-layout"
-                      fallback={<CatchAllNavigate to="/login" />}
+                  <Route
+                      element={
+                        <Authenticated
+                          key="authenticated-layout"
+                          fallback={<CatchAllNavigate to="/login" />}
+                        >
+                          <Layout>
+                            <Outlet />
+                          </Layout>
+                        </Authenticated>
+                      }
                     >
-                      <Layout>
-                        <Outlet />
-                      </Layout>
-                    </Authenticated>
-                  }
-                >
-                  <Route index element={<DashboardPage />} />
+                      <Route index element={<DashboardPage />} />
 
-                  {/* <Route
-                    path="/tasks"
-                    element={
-                      <TasksListPage>
-                        <Outlet />
-                      </TasksListPage>
-                    }
-                  >
-                    <Route path="new" element={<TasksCreatePage />} />
-                    <Route path="edit/:id" element={<TasksEditPage />} />
-                  </Route> */}
+                      <Route
+                        path="/tasks"
+                        element={
+                          <TasksListPage>
+                            <Outlet />
+                          </TasksListPage>
+                        }
+                      >
+                        <Route path="new" element={<TasksCreatePage />} />
+                        <Route path="edit/:id" element={<TasksEditPage />} />
+                      </Route>
 
-                  {/* <Route path="/companies">
-                    <Route index element={<CompanyListPage />} />
-                    <Route path="new" element={<CompanyCreatePage />} />
-                    <Route path="edit/:id" element={<CompanyEditPage />} />
-                  </Route> */}
+                      <Route path="/companies">
+                        <Route index element={<CompanyListPage />} />
+                        <Route path="new" element={<CompanyCreatePage />} />
+                        <Route path="edit/:id" element={<CompanyEditPage />} />
+                      </Route>
 
-                  <Route path="*" element={<ErrorComponent />} />
-                 </Route>
+                      <Route path="*" element={<ErrorComponent />} />
+                  </Route>
                 
                   <Route
-                  element={
-                    <Authenticated
-                      key="authenticated-auth"
-                      fallback={<Outlet />}
-                    >
-                      <NavigateToResource resource="dashboard" />
-                    </Authenticated>
-                  }
-                >
-                  <Route path="/login" element={<Login />} />
+                    element={
+                      <Authenticated
+                        key="authenticated-auth"
+                        fallback={<Outlet />}
+                      >
+                        <NavigateToResource resource="dashboard" />
+                      </Authenticated>
+                    }
+                  >
+                    <Route path="/login" element={<Login />} />
                   </Route>
                 </Routes>
 
