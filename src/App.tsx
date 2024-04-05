@@ -32,7 +32,6 @@ import { TasksCreatePage, TasksEditPage, TasksListPage } from "./pages/tasks";
 function App() {
   return (
     <BrowserRouter>
-      <GitHubBanner />
       <RefineKbarProvider>
           <AntdApp>
             <DevtoolsProvider>
